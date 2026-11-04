@@ -1,0 +1,24 @@
+@if (auth.user(); as user) {
+  <header class="topbar">
+    <strong class="brand">Leave Manager</strong>
+    <nav>
+      @if (user.role === 'employee') {
+        <a routerLink="/my-leave" routerLinkActive="active">My leave</a>
+      }
+      @if (user.role === 'manager') {
+        <a routerLink="/approvals" routerLinkActive="active">Approvals</a>
+      }
+      @if (user.role === 'admin') {
+        <a routerLink="/admin" routerLinkActive="active">Settings</a>
+      }
+      <a routerLink="/calendar" routerLinkActive="active">Team calendar</a>
+    </nav>
+    <div class="who">
+      <span>{{ user.name }} <span class="badge role">{{ user.role }}</span></span>
+      <button class="ghost" (click)="auth.logout()">Sign out</button>
+    </div>
+  </header>
+}
+<main class="page">
+  <router-outlet />
+</main>

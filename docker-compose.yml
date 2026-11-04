@@ -1,0 +1,22 @@
+# Optional: PostgreSQL and a local mail inbox for development.
+# The API and the Angular app still run on your machine (see README).
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: leave_mgmt
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mailpit:
+    image: axllent/mailpit
+    ports:
+      - '1025:1025' # SMTP
+      - '8025:8025' # web inbox
+
+volumes:
+  pgdata:
